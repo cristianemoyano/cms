@@ -3,40 +3,46 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-import { Button, Checkbox, Form } from 'semantic-ui-react'
-
 export default function Create() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [checkbox, setCheckbox] = useState(false);
 
     const navigate = useNavigate();
 
-    const postData = () => {
+    const postData = (e) => {
+        e.preventDefault();
         axios.post(`https://6307c4363a2114bac76b3bb9.mockapi.io/api/v1/fakeData`, {
             firstName,
             lastName,
-            checkbox
         }).then(() => {
             navigate('/read')
         })
     }
     return (
         <div className="main">
-            <Form className="create-form">
-                <Form.Field>
-                    <label>First Name</label>
-                    <input placeholder='First Name' onChange={(e) => setFirstName(e.target.value)}/>
-                </Form.Field>
-                <Form.Field>
-                    <label>Last Name</label>
-                    <input placeholder='Last Name' onChange={(e) => setLastName(e.target.value)}/>
-                </Form.Field>
-                <Form.Field>
-                <Checkbox label='I agree to the Terms and Conditions' onChange={(e) => setCheckbox(!checkbox)}/>
-                </Form.Field>
-                <Button onClick={postData} type='submit'>Submit</Button>
-            </Form>
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder='Nombre'
+                        onChange={(e) => setFirstName(e.target.value)}
+                    />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Apellido</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder='Apellido'
+                        onChange={(e) => setLastName(e.target.value)}
+                    />
+                </div>
+                <div class="col-auto">
+                    <button onClick={(e) => postData(e)} class="btn btn-primary mb-3">Crear</button>
+                </div>
+            </form>
         </div>
     )
 }

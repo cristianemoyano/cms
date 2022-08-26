@@ -33,38 +33,37 @@ export default function Read() {
             })
     }
     return (
-        <div className='main'>
-            <Table singleLine>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>First Name</Table.HeaderCell>
-                        <Table.HeaderCell>Last Name</Table.HeaderCell>
-                        <Table.HeaderCell>Checked</Table.HeaderCell>
-                        <Table.HeaderCell>Update</Table.HeaderCell>
-                        <Table.HeaderCell>Delete</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
+        <div className='main '>
+            <table class="table text-white">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
                     {APIData.map((data) => {
                         return (
-                            <Table.Row>
-                                <Table.Cell>{data.firstName}</Table.Cell>
-                                <Table.Cell>{data.lastName}</Table.Cell>
-                                <Table.Cell>{data.checkbox ? 'Checked' : 'Unchecked'}</Table.Cell>
-                                <Link to='/update'>
-                                    <Table.Cell>
-                                        <Button onClick={() => setData(data)}>Update</Button>
-                                    </Table.Cell>
-                                </Link>
-                                <Table.Cell>
-                                    <Button onClick={() => onDelete(data.id)}>Delete</Button>
-                                </Table.Cell>
-                            </Table.Row>
+                            <tr>
+                                <td>{data.firstName}</td>
+                                <td>{data.lastName}</td>
+
+                                <td>
+                                    <Link to='/update'>
+                                        <button onClick={() => setData(data)} class="btn btn-primary mb-3">Editar</button>
+                                    </Link>
+                                </td>
+
+                                <td>
+                                    <button onClick={() => onDelete(data.id)} class="btn btn-danger mb-3">Eliminar</button>
+                                </td>
+                            </tr>
                         )
                     })}
-                </Table.Body>
-            </Table>
+                </tbody>
+            </table>
         </div>
     )
 }
